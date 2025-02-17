@@ -5,14 +5,18 @@ import API from "../../API";
 
 const InvestorDashboard = () => {
   const [investments, setInvestments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getInvestments = async () => {
+    setLoading(true);
     try {
       const response = await API.get("/loans/my-investments");
       setInvestments(response.data);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching investments:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,9 +33,11 @@ const InvestorDashboard = () => {
             <h1>Investor Dashboard</h1>
           </div>
 
-          <div className="investment-list">
-            {investments.length > 0 ? (
-              investments.map((investment) => (
+          {loading ? (
+            <p className="loading-message">Loading investments...</p>
+          ) : investments.length > 0 ? (
+            <div className="investment-list">
+              {investments.map((investment) => (
                 <div key={investment._id} className="investment-card">
                   <img
                     src={`http://localhost:3001/${investment.farm.images[0]}`}
@@ -55,11 +61,11 @@ const InvestorDashboard = () => {
                     <strong>Status:</strong> {investment.status}
                   </p>
                 </div>
-              ))
-            ) : (
-              <p className="no-investments">No investments found.</p>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="no-investments">No investments found.</p>
+          )}
         </div>
       </div>
     </>

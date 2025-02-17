@@ -6,13 +6,17 @@ import API from "../../../API";
 
 const FarmerDashboard = () => {
   const [farms, setFarms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getFarms = async () => {
+    setLoading(true);
     try {
       const response = await API.get("/farms/my-farms");
       setFarms(response.data);
     } catch (error) {
       console.error("Error fetching farms:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,13 +36,15 @@ const FarmerDashboard = () => {
             </Link>
           </div>
 
-          <div className="farm-list">
-            {farms.length > 0 ? (
-              farms.map((farm) => (
+          {loading ? (
+            <p className="loading-message">Loading farms...</p>
+          ) : farms.length > 0 ? (
+            <div className="farm-list">
+              {farms.map((farm) => (
                 <div key={farm._id} className="farm-card">
                   <img
                     src={`http://localhost:3001/${farm.images[0]}`}
-                    alt="Farm Land Pictures"
+                    alt="Farm Land"
                     className="farm-image"
                   />
                   <h2 className="farm-name">{farm.name}</h2>
@@ -63,11 +69,11 @@ const FarmerDashboard = () => {
                     <button className="add-loan-btn">Request Loan</button>
                   </Link>
                 </div>
-              ))
-            ) : (
-              <p className="no-farms">No farms found.</p>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="no-farms">No farms found.</p>
+          )}
         </div>
       </div>
     </>

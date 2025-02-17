@@ -8,16 +8,20 @@ import { toast } from "react-toastify";
 
 const InvestorFeed = () => {
   const [loans, setLoans] = useState([]);
-  const navigate = useNavigate();
   const [investorId, setInvestorId] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const getLoans = async () => {
+    setLoading(true);
     try {
       const response = await API.get("/loans/available");
       setLoans(response.data.loans);
       setInvestorId(response.data.investorId);
     } catch (error) {
       console.error("Error fetching farms:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,7 +37,7 @@ const InvestorFeed = () => {
         fromUserId: investorId,
       });
 
-      toast.success("Loan amount send successfully!");
+      toast.success("Loan amount sent successfully!");
       navigate("/investorDashboard");
     } catch (error) {
       toast.error(
@@ -48,38 +52,47 @@ const InvestorFeed = () => {
       <div className="investor-feed">
         <h1 className="dashboard-title">Investor Feed</h1>
 
-        <div className="farm-list">
-          {loans.length > 0 ? (
-            loans.map((loan) => (
-              <div key={loan._id} className="farm-card">
-                <img
-                  src={`http://localhost:3001/${loan.farm.images}`}
-                  alt="Farm Land Pictures"
-                  className="farm-image"
-                />
-                <h2 className="farm-name">Status: {loan.status}</h2>
-                <p>
-                  <strong>Amount:</strong> {loan.amount}
-                </p>
-                <p>
-                  <strong>Requested Interest Rate:</strong> {loan.interestRate}
-                </p>
-                <Link to="">
-                  <button
-                    className="interested-btn"
-                    onClick={() =>
-                      acceptLoanRequest(loan.amount, loan._id, loan.farm.farmer)
-                    }
-                  >
-                    Interested
-                  </button>
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p className="no-farms">No farms available to fund.</p>
-          )}
-        </div>
+        {loading ? (
+          <p className="loading-message">Loading loan requests...</p>
+        ) : (
+          <div className="farm-list">
+            {loans.length > 0 ? (
+              loans.map((loan) => (
+                <div key={loan._id} className="farm-card">
+                  <img
+                    src={`http://localhost:3001/${loan.farm.images}`}
+                    alt="Farm Land Pictures"
+                    className="farm-image"
+                  />
+                  <h2 className="farm-name">Status: {loan.status}</h2>
+                  <p>
+                    <strong>Amount:</strong> {loan.amount}
+                  </p>
+                  <p>
+                    <strong>Requested Interest Rate:</strong>{" "}
+                    {loan.interestRate}
+                  </p>
+                  <Link to="">
+                    <button
+                      className="interested-btn"
+                      onClick={() =>
+                        acceptLoanRequest(
+                          loan.amount,
+                          loan._id,
+                          loan.farm.farmer
+                        )
+                      }
+                    >
+                      Interested
+                    </button>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p className="no-farms">No farms available to fund.</p>
+            )}
+          </div>
+        )}
       </div>
     </>
   );
