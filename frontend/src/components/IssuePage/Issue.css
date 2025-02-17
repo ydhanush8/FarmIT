@@ -1,0 +1,62 @@
+.issue-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 700px;
+  background-color: #f9f9f9;
+}
+
+.issue-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.issue-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.issue-container input,
+.issue-container textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 680px;
+  color: black;
+}
+
+.issue-container textarea {
+  height: 100px;
+  resize: none;
+}
+
+.issue-container input:focus,
+.issue-container textarea:focus {
+  border: 2px solid rgb(38, 38, 38);
+  outline: none;
+}
+
+.issue-container input::placeholder,
+.issue-container textarea::placeholder {
+  color: black;
+}
+
+.issue-container button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.issue-container button:hover {
+  background-color: rgb(48, 48, 48);
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./InvestorDashboard.css";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import API from "../../API";
 
@@ -12,7 +13,6 @@ const InvestorDashboard = () => {
     try {
       const response = await API.get("/loans/my-investments");
       setInvestments(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching investments:", error);
     } finally {
@@ -34,7 +34,9 @@ const InvestorDashboard = () => {
           </div>
 
           {loading ? (
-            <p className="loading-message">Loading investments...</p>
+            <p className="loading-message">
+              <strong>Loading investments...</strong>
+            </p>
           ) : investments.length > 0 ? (
             <div className="investment-list">
               {investments.map((investment) => (
@@ -67,6 +69,9 @@ const InvestorDashboard = () => {
             <p className="no-investments">No investments found.</p>
           )}
         </div>
+        <Link to={`/issue/investor`}>
+          <button className="add-issue-btn">Issue?</button>
+        </Link>
       </div>
     </>
   );

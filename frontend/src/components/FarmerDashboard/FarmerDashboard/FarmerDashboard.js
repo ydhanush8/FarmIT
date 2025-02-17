@@ -37,7 +37,9 @@ const FarmerDashboard = () => {
           </div>
 
           {loading ? (
-            <p className="loading-message">Loading farms...</p>
+            <p className="loading-message">
+              <strong>Loading farms...</strong>
+            </p>
           ) : farms.length > 0 ? (
             <div className="farm-list">
               {farms.map((farm) => (
@@ -75,6 +77,9 @@ const FarmerDashboard = () => {
             <p className="no-farms">No farms found.</p>
           )}
         </div>
+        <Link to={`/issue/farmer`}>
+          <button className="add-issue-btn">Issue?</button>
+        </Link>
       </div>
     </>
   );

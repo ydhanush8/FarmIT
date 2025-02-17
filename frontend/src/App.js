@@ -9,6 +9,7 @@ import InvestorDashboard from "./components/InvestorDashboard/InvestorDashboard"
 import FarmerDashboard from "./components/FarmerDashboard/FarmerDashboard/FarmerDashboard";
 import AddFarm from "./components/FarmerDashboard/AddFarm/AddFarm";
 import LoanRequest from "./components/FarmerDashboard/LoanRequest/LoanRequest";
+import Issue from "./components/IssuePage/Issue";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/farmerDashboard" element={<FarmerDashboard />} />
           <Route path="/addFarm" element={<AddFarm />} />
           <Route path="/loanRequest/:farmId" element={<LoanRequest />} />
+          <Route path="/issue/:userType" element={<Issue />} />
         </Routes>
       </BrowserRouter>
     </div>

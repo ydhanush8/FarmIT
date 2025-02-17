@@ -7,9 +7,12 @@
 }
 
 .dashboard-title {
-  font-size: 24px;
-  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .farm-list {
@@ -80,4 +83,9 @@
 
 .interested-btn:hover {
   background-color: rgb(48, 48, 48);
+}
+
+.loading-message {
+  font-size: 30px;
+  font-weight: 500;
 }

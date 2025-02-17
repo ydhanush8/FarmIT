@@ -94,3 +94,25 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
+.add-issue-btn {
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 16px;
+  position: fixed;
+  right: 35px;
+  bottom: 30px;
+}
+
+.loading-message {
+  font-size: 30px;
+  font-weight: 500;
+}

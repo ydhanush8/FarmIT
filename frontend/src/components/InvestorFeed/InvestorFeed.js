@@ -50,10 +50,14 @@ const InvestorFeed = () => {
     <>
       <Navbar isInvestor={true} />
       <div className="investor-feed">
-        <h1 className="dashboard-title">Investor Feed</h1>
+        <div className="dashboard-title">
+          <h1>Investor Feed</h1>
+        </div>
 
         {loading ? (
-          <p className="loading-message">Loading loan requests...</p>
+          <p className="loading-message">
+            <strong>Loading loan requests...</strong>
+          </p>
         ) : (
           <div className="farm-list">
             {loans.length > 0 ? (
@@ -93,6 +97,9 @@ const InvestorFeed = () => {
             )}
           </div>
         )}
+        <Link to={`/issue/investor`}>
+          <button className="add-issue-btn">Issue?</button>
+        </Link>
       </div>
     </>
   );
