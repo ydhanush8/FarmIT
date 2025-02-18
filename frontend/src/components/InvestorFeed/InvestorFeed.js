@@ -76,6 +76,9 @@ const InvestorFeed = () => {
                     <strong>Requested Interest Rate:</strong>{" "}
                     {loan.interestRate}
                   </p>
+                  <p>
+                    <strong>Duration:</strong> {loan.duration}
+                  </p>
                   <Link to="">
                     <button
                       className="interested-btn"

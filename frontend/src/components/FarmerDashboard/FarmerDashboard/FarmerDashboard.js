@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import "./FarmerDashboard.css";
 import Navbar from "../../Navbar/Navbar";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import API from "../../../API";
 
 const FarmerDashboard = () => {
   const [farms, setFarms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [farmerId, setFarmerId] = useState("");
 
   const getFarms = async () => {
     setLoading(true);
     try {
       const response = await API.get("/farms/my-farms");
-      setFarms(response.data);
+      setFarms(response.data.farms);
+      setFarmerId(response.data.farmerId);
     } catch (error) {
       console.error("Error fetching farms:", error);
     } finally {
@@ -23,6 +26,21 @@ const FarmerDashboard = () => {
   useEffect(() => {
     getFarms();
   }, []);
+
+  const repaymentAmount = async (amount, investorId, loanId) => {
+    try {
+      await API.post(`/loans/${loanId}/repay`, {
+        amount: amount,
+        toUserId: investorId,
+        fromUserId: farmerId,
+      });
+      toast.success("Repayment amount sent successfully!");
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Error submitting loan request"
+      );
+    }
+  };
 
   return (
     <>
@@ -67,9 +85,26 @@ const FarmerDashboard = () => {
                   <p>
                     <strong>Status:</strong> {farm.status}
                   </p>
-                  <Link to={`/loanRequest/${farm._id}`}>
-                    <button className="add-loan-btn">Request Loan</button>
-                  </Link>
+                  {farm.status === "active" ? (
+                    <Link to={`/loanRequest/${farm._id}`}>
+                      <button className="add-loan-btn">Request Loan</button>
+                    </Link>
+                  ) : (
+                    <Link to="">
+                      <button
+                        className="add-loan-btn"
+                        onClick={() =>
+                          repaymentAmount(
+                            farm.loan.repaymentSchedule[0].amount,
+                            farm.loan.investors[0].investor,
+                            farm.loan._id
+                          )
+                        }
+                      >
+                        Repay amount
+                      </button>
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

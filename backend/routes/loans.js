@@ -67,6 +67,7 @@ router.post("/", [auth, checkRole(["farmer"])], async (req, res) => {
     });
 
     await loan.save();
+    await Farm.findByIdAndUpdate(farmId, { loan: loan._id });
     res.json(loan);
   } catch (err) {
     console.error(err);
@@ -80,7 +81,7 @@ router.post(
   async (req, res) => {
     try {
       const { amount, fromUserId, toUserId } = req.body;
-      const loan = await Loan.findById(req.params.id);
+      const loan = await Loan.findById(req.params.id).populate("farm");
 
       const transaction = new Transaction({
         type: "investment",
@@ -117,6 +118,8 @@ router.post(
 
       if (totalInvested === loan.amount) {
         loan.status = "active";
+        loan.farm.status = "funded";
+        await loan.farm.save();
       }
 
       await loan.save();

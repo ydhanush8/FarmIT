@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const farmSchema = new mongoose.Schema({
   farmer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   name: {
@@ -30,18 +30,25 @@ const farmSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: [{
-    type: String,
-  }],
+  images: [
+    {
+      type: String,
+    },
+  ],
   status: {
     type: String,
-    enum: ['active', 'funded', 'completed'],
-    default: 'active',
+    enum: ["active", "funded", "completed"],
+    default: "active",
+  },
+  loan: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Loan",
+    default: null,
   },
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
-export default mongoose.model('Farm', farmSchema); 
+export default mongoose.model("Farm", farmSchema);

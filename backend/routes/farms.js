@@ -32,10 +32,10 @@ function checkFileType(file, cb) {
   }
 }
 
-router.get("/my-farms", auth, async (req, res) => {
+router.get("/my-farms", [auth, checkRole(["farmer"])], async (req, res) => {
   try {
-    const farms = await Farm.find({ farmer: req.user.userId });
-    res.json(farms);
+    const farms = await Farm.find({ farmer: req.user.userId }).populate("loan");
+    res.json({ farms, farmerId: req.user.userId });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
