@@ -26,7 +26,7 @@ const InvestorDashboard = () => {
 
   return (
     <>
-      <Navbar isInvestor={true} />
+      <Navbar UserType={"investor"} />
       <div className="investor-dashboard">
         <div className="dashboard-content">
           <div className="dashboard-header">

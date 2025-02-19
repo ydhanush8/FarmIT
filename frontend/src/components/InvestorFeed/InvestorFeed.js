@@ -48,7 +48,7 @@ const InvestorFeed = () => {
 
   return (
     <>
-      <Navbar isInvestor={true} />
+      <Navbar UserType={"investor"} />
       <div className="investor-feed">
         <div className="dashboard-title">
           <h1>Investor Feed</h1>

@@ -17,6 +17,7 @@ const Login = () => {
       toast.success("Login successful!");
       if (data.role === "investor") navigate("/investorFeed");
       else if (data.role === "farmer") navigate("/farmerDashboard");
+      else if (data.role === "admin") navigate("/adminUsersDashboard");
     } catch (err) {
       toast.error(err.response?.data?.message || "Error during login");
     }

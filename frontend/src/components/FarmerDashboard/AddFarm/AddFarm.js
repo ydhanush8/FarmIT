@@ -56,7 +56,7 @@ const AddFarm = () => {
 
   return (
     <>
-      <Navbar isInvestor={false} />
+      <Navbar UserType={"farmer"} />
       <div className="add-farm-container">
         <h2>Add Farm Land</h2>
         <form onSubmit={handleSubmit}>

@@ -38,7 +38,7 @@ const LoanRequest = () => {
 
   return (
     <>
-      <Navbar isInvestor={false} />
+      <Navbar UserType={"farmer"} />
       <div className="loan-request-container">
         <h2>Request a Loan</h2>
         <form onSubmit={handleSubmit}>

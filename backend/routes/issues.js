@@ -37,7 +37,7 @@ router.get(
   [auth, checkRole(["farmer", "investor", "admin"])],
   async (req, res) => {
     try {
-      const issues = await Issue.find();
+      const issues = await Issue.find().populate("user");
       res.json(issues);
     } catch (err) {
       console.error(err);

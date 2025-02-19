@@ -42,9 +42,10 @@ const FarmerDashboard = () => {
     }
   };
 
+  // TODO: Display loan info in the farmers dashboard that farmer has applied for his farm
   return (
     <>
-      <Navbar isInvestor={false} />
+      <Navbar UserType={"farmer"} />
       <div className="farmer-dashboard">
         <div className="dashboard-content">
           <div className="dashboard-header">

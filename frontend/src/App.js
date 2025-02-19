@@ -10,6 +10,10 @@ import FarmerDashboard from "./components/FarmerDashboard/FarmerDashboard/Farmer
 import AddFarm from "./components/FarmerDashboard/AddFarm/AddFarm";
 import LoanRequest from "./components/FarmerDashboard/LoanRequest/LoanRequest";
 import Issue from "./components/IssuePage/Issue";
+import AdminUsersDashboard from "./components/AdminDashboard/AdminUsersDashboard/AdminUsersDashboard";
+import AdminLoansDashboard from "./components/AdminDashboard/AdminLoansDashboard/AdminLoansDashboard";
+import AdminFarmsDashboard from "./components/AdminDashboard/AdminFarmsDashboard/AdminFarmsDashboard";
+import AdminIssuesDashboard from "./components/AdminDashboard/AdminIssuesDashboard/AdminIssuesDashboard";
 
 function App() {
   return (
@@ -26,6 +30,22 @@ function App() {
           <Route path="/addFarm" element={<AddFarm />} />
           <Route path="/loanRequest/:farmId" element={<LoanRequest />} />
           <Route path="/issue/:userType" element={<Issue />} />
+          <Route
+            path="/adminUsersDashboard"
+            element={<AdminUsersDashboard />}
+          />
+          <Route
+            path="/adminLoansDashboard"
+            element={<AdminLoansDashboard />}
+          />
+          <Route
+            path="/adminFarmsDashboard"
+            element={<AdminFarmsDashboard />}
+          />
+          <Route
+            path="/adminIssuesDashboard"
+            element={<AdminIssuesDashboard />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
