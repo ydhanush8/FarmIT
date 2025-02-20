@@ -5,12 +5,17 @@ import Loan from "../models/Loan.js";
 import Farm from "../models/Farm.js";
 import Transaction from "../models/Transaction.js";
 
-router.get("/my-loans", auth, async (req, res) => {
+router.get("/my-loans", auth, checkRole(["farmer"]), async (req, res) => {
   try {
-    const loans = await Loan.find({ "farm.farmer": req.user.userId })
+    const loans = await Loan.find()
       .populate("farm")
       .populate("investors.investor");
-    res.json(loans);
+
+    const filteredLoans = loans.filter(
+      (loan) => loan.farm?.farmer?._id.toString() === req.user.userId
+    );
+
+    res.json(filteredLoans);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

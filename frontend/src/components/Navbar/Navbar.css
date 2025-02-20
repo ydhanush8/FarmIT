@@ -17,7 +17,6 @@
   margin-right: 20px;
   font-size: 2rem;
   font-weight: bold;
-  color: #007bff;
   color: white;
 }
 
@@ -51,4 +50,32 @@
 
 .logout-btn:hover {
   background-color: #d32f2f;
+}
+
+.profile-btn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 550;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.profile-btn:hover {
+  background-color: rgb(208, 208, 208);
+}
+
+.profile-link-btn {
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1rem;
 }

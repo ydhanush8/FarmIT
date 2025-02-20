@@ -1,0 +1,29 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 33px;
+  width: 370px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+}
+
+.profile-card p strong {
+  font-size: 18px;
+}
+
+.profile-card:hover {
+  transform: scale(1.02);
+}
+
+.profile-card p {
+  margin: 12px 0;
+  font-size: 16px;
+}

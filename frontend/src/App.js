@@ -14,6 +14,8 @@ import AdminUsersDashboard from "./components/AdminDashboard/AdminUsersDashboard
 import AdminLoansDashboard from "./components/AdminDashboard/AdminLoansDashboard/AdminLoansDashboard";
 import AdminFarmsDashboard from "./components/AdminDashboard/AdminFarmsDashboard/AdminFarmsDashboard";
 import AdminIssuesDashboard from "./components/AdminDashboard/AdminIssuesDashboard/AdminIssuesDashboard";
+import FarmerLoans from "./components/FarmerDashboard/FarmerLoans/FarmerLoans";
+import UserProfile from "./components/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
             path="/adminIssuesDashboard"
             element={<AdminIssuesDashboard />}
           />
+          <Route path="/farmerLoans" element={<FarmerLoans />} />
+          <Route path="/userProfile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </div>

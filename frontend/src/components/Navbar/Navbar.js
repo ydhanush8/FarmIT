@@ -31,6 +31,9 @@ const Navbar = ({ UserType }) => {
             <Link to="/farmerDashboard" className="nav-link">
               Dashboard
             </Link>
+            <Link to="/farmerLoans" className="nav-link">
+              Loans
+            </Link>
           </>
         )}
         {UserType === "admin" && (
@@ -51,6 +54,11 @@ const Navbar = ({ UserType }) => {
         )}
       </div>
       <div className="navbar-right">
+        <button className="profile-btn">
+          <Link to={"/userProfile"} className="profile-link-btn">
+            Profile
+          </Link>
+        </button>
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>

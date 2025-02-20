@@ -1,88 +1,93 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import { auth, checkRole } from '../middleware/auth.js';
-import Loan from '../models/Loan.js';
+import { auth, checkRole } from "../middleware/auth.js";
+import Loan from "../models/Loan.js";
 
-router.get('/tracking', [auth, checkRole(['investor'])], async (req, res) => {
+// TODO
+router.get("/tracking", [auth, checkRole(["investor"])], async (req, res) => {
   try {
     const investments = await Loan.find({
-      'investors.investor': req.user.userId
+      "investors.investor": req.user.userId,
     })
-    .populate('farm')
-    .sort('-createdAt');
+      .populate("farm")
+      .sort("-createdAt");
 
-    const stats = investments.reduce((acc, loan) => {
-      const investment = loan.investors.find(
-        inv => inv.investor.toString() === req.user.userId
-      );
+    const stats = investments.reduce(
+      (acc, loan) => {
+        const investment = loan.investors.find(
+          (inv) => inv.investor.toString() === req.user.userId
+        );
 
-      if (investment) {
-        acc.totalInvested += investment.amount;
-        
-        // Calculate returns based on paid repayments
-        const investorShare = investment.amount / loan.amount;
-        const returns = loan.repaymentSchedule
-          .filter(payment => payment.status === 'paid')
-          .reduce((sum, payment) => sum + (payment.amount * investorShare), 0);
-        
-        acc.totalReturns += returns;
+        if (investment) {
+          acc.totalInvested += investment.amount;
 
-        if (loan.status === 'active') {
-          acc.activeInvestments += 1;
+          const investorShare = investment.amount / loan.amount;
+          const returns = loan.repaymentSchedule
+            .filter((payment) => payment.status === "paid")
+            .reduce((sum, payment) => sum + payment.amount * investorShare, 0);
+
+          acc.totalReturns += returns;
+
+          if (loan.status === "active") {
+            acc.activeInvestments += 1;
+          }
         }
-      }
 
-      return acc;
-    }, {
-      totalInvested: 0,
-      totalReturns: 0,
-      activeInvestments: 0
-    });
+        return acc;
+      },
+      {
+        totalInvested: 0,
+        totalReturns: 0,
+        activeInvestments: 0,
+      }
+    );
 
     res.json({
-      investments: investments.map(loan => ({
+      investments: investments.map((loan) => ({
         _id: loan._id,
         farm: loan.farm,
-        amount: loan.investors.find(inv => inv.investor.toString() === req.user.userId).amount,
+        amount: loan.investors.find(
+          (inv) => inv.investor.toString() === req.user.userId
+        ).amount,
         interestRate: loan.interestRate,
         startDate: loan.createdAt,
         status: loan.status,
-        returns: stats.totalReturns
+        returns: stats.totalReturns,
       })),
-      stats
+      stats,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const loan = await Loan.findById(req.params.id)
-      .populate('farm')
-      .populate('investors.investor', '-password');
+      .populate("farm")
+      .populate("investors.investor", "-password");
 
     if (!loan) {
-      return res.status(404).json({ message: 'Investment not found' });
+      return res.status(404).json({ message: "Investment not found" });
     }
 
     const investment = loan.investors.find(
-      inv => inv.investor._id.toString() === req.user.userId
+      (inv) => inv.investor._id.toString() === req.user.userId
     );
 
     if (!investment) {
-      return res.status(403).json({ message: 'Not authorized' });
+      return res.status(403).json({ message: "Not authorized" });
     }
 
     res.json({
       loan,
-      investment
+      investment,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
-export default router; 
+export default router;
