@@ -3,7 +3,6 @@ const router = express.Router();
 import { auth } from "../middleware/auth.js";
 import Transaction from "../models/Transaction.js";
 
-// TODO
 router.get("/my-transactions", auth, async (req, res) => {
   try {
     const transactions = await Transaction.find({
@@ -14,7 +13,7 @@ router.get("/my-transactions", auth, async (req, res) => {
       .populate("to", "firstName lastName")
       .sort("-createdAt");
 
-    res.json(transactions);
+    res.json({ transactions, role: req.user.role });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

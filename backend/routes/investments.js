@@ -3,7 +3,6 @@ const router = express.Router();
 import { auth, checkRole } from "../middleware/auth.js";
 import Loan from "../models/Loan.js";
 
-// TODO
 router.get("/tracking", [auth, checkRole(["investor"])], async (req, res) => {
   try {
     const investments = await Loan.find({

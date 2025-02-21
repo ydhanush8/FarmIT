@@ -24,6 +24,15 @@ const Navbar = ({ UserType }) => {
             <Link to="/investorDashboard" className="nav-link">
               Dashboard
             </Link>
+            <Link to="/investorTracking" className="nav-link">
+              Tracking
+            </Link>
+            <Link to="/userTransactions" className="nav-link">
+              Transactions
+            </Link>
+            <Link to="/userIssuesPage" className="nav-link">
+              Issues
+            </Link>
           </>
         )}
         {UserType === "farmer" && (
@@ -33,6 +42,12 @@ const Navbar = ({ UserType }) => {
             </Link>
             <Link to="/farmerLoans" className="nav-link">
               Loans
+            </Link>
+            <Link to="/userTransactions" className="nav-link">
+              Transactions
+            </Link>
+            <Link to="/userIssuesPage" className="nav-link">
+              Issues
             </Link>
           </>
         )}

@@ -16,6 +16,9 @@ import AdminFarmsDashboard from "./components/AdminDashboard/AdminFarmsDashboard
 import AdminIssuesDashboard from "./components/AdminDashboard/AdminIssuesDashboard/AdminIssuesDashboard";
 import FarmerLoans from "./components/FarmerDashboard/FarmerLoans/FarmerLoans";
 import UserProfile from "./components/UserProfile/UserProfile";
+import InvestorTracking from "./components/InvestorTracking/InvestorTracking";
+import UserTransactions from "./components/UserTransactions/UserTransactions";
+import UserIssuesPage from "./components/UserIssuesPage/UserIssuesPage";
 
 function App() {
   return (
@@ -50,6 +53,9 @@ function App() {
           />
           <Route path="/farmerLoans" element={<FarmerLoans />} />
           <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/investorTracking" element={<InvestorTracking />} />
+          <Route path="/userTransactions" element={<UserTransactions />} />
+          <Route path="/userIssuesPage" element={<UserIssuesPage />} />
         </Routes>
       </BrowserRouter>
     </div>

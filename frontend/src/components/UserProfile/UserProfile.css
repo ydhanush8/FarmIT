@@ -27,3 +27,8 @@
   margin: 12px 0;
   font-size: 16px;
 }
+
+.profile-image {
+  height: 200px;
+  width: 200px;
+}

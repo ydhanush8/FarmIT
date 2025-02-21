@@ -3,6 +3,7 @@ import API from "../../API";
 import { toast } from "react-toastify";
 import "./UserProfile.css";
 import Navbar from "../Navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -35,6 +36,11 @@ const UserProfile = () => {
             <p className="loading-message">Loading profile...</p>
           ) : userProfile ? (
             <div className="profile-card">
+              <img
+                src="/profile.png"
+                alt="Profile-Image"
+                className="profile-image"
+              />
               <h2>
                 <strong>First Name :</strong> {userProfile.firstName}
               </h2>
@@ -61,6 +67,9 @@ const UserProfile = () => {
           )}
         </div>
       </div>
+      <Link to={`/issue/investor`}>
+        <button className="add-issue-btn">Issue?</button>
+      </Link>
     </>
   );
 };

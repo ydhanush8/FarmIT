@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import { auth } from "../middleware/auth.js";
 import User from "../models/User.js";
 
-// TODO
 router.get("/profile", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId).select("-password");

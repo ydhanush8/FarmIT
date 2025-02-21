@@ -20,12 +20,11 @@ const Issue = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/issues/add-issue", {
+      await API.post("/issue/add-issue", {
         ...issueData,
       });
       toast.success("Issue submitted successfully!");
-      if (userType === "investor") navigate("/investorDashboard");
-      else if (userType === "farmer") navigate("/farmerDashboard");
+      navigate("/userIssuesPage");
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Error submitting the issue"
